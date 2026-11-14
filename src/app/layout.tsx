@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { siteConfig } from "@/config/site";
 
@@ -31,7 +33,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <a
+            href="#main-content"
+            className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-lg bg-accent px-4 py-2 font-medium text-accent-foreground focus:translate-y-0"
+          >
+            Skip to content
+          </a>
+
+          <Navbar />
+
+          {children}
+
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
