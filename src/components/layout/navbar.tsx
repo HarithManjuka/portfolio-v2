@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -60,10 +60,14 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Actions */}
+          {/* Desktop and mobile actions */}
           <div className="flex shrink-0 items-center gap-2">
-            <ThemeToggle />
+            {/* Desktop theme toggle */}
+            <div className="hidden xl:block">
+              <ThemeToggle />
+            </div>
 
+            {/* Desktop Contact CTA */}
             <div className="hidden xl:block">
               <ButtonLink
                 href={primaryNavigationAction.href}
@@ -74,6 +78,9 @@ export function Navbar() {
                 {primaryNavigationAction.label}
               </ButtonLink>
             </div>
+
+            {/* Mobile/tablet full-screen navigation */}
+            <MobileMenu />
           </div>
         </nav>
       </Container>
