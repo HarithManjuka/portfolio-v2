@@ -153,6 +153,109 @@ html[data-intro="playing"] .site-header {
   }
 }
 
+/* ==========================================================
+   PHASE 06 — CINEMATIC INTRO & HERO
+   ========================================================== */
+
+.cinematic-intro {
+  isolation: isolate;
+}
+
+.cinematic-intro-grid {
+  background-image:
+    linear-gradient(rgb(241 109 115 / 6%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(241 109 115 / 6%) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 45%, rgb(241 109 115 / 13%), transparent 58%);
+  background-size:
+    62px 62px,
+    62px 62px,
+    100% 100%;
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 80%);
+}
+
+.cinematic-intro-emblem {
+  box-shadow:
+    0 0 95px rgb(241 109 115 / 13%),
+    inset 0 0 65px rgb(241 109 115 / 8%);
+  animation: cinematic-emblem-enter 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.cinematic-intro-copy {
+  animation: cinematic-copy-enter 900ms 350ms both;
+}
+
+.cinematic-progress {
+  width: 0;
+  animation: cinematic-progress-fill 2600ms linear forwards;
+}
+
+.cinematic-hero-grid {
+  background-image:
+    linear-gradient(rgb(127 127 127 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(127 127 127 / 5%) 1px, transparent 1px);
+  background-size: 84px 84px;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%);
+}
+
+.cinematic-portrait-ring {
+  box-shadow:
+    0 0 100px rgb(241 109 115 / 8%),
+    inset 0 0 80px rgb(241 109 115 / 5%);
+}
+
+.cinematic-portrait-halo {
+  animation: cinematic-halo-breathe 7s ease-in-out infinite;
+}
+
+@keyframes cinematic-emblem-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.78) rotate(-10deg);
+    filter: blur(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes cinematic-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cinematic-progress-fill {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes cinematic-halo-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
 /* ==========================================
    ACCESSIBILITY: REDUCED MOTION
    ========================================== */
@@ -172,5 +275,17 @@ html[data-intro="playing"] .site-header {
 
   .mobile-navigation::backdrop {
     backdrop-filter: none;
+  }
+
+  .cinematic-intro-emblem,
+  .cinematic-intro-copy,
+  .cinematic-progress,
+  .cinematic-portrait-halo {
+    animation: none !important;
+  }
+
+  .cinematic-portrait-ring,
+  .cinematic-intro-emblem {
+    transition: none !important;
   }
 }
