@@ -1,43 +1,39 @@
 import Link from "next/link";
+
+import { DesktopNavigation } from "@/components/layout/desktop-navigation";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
-import { navigationItems, primaryNavigationAction } from "@/config/navigation";
+import { primaryNavigationAction } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 
 /**
- * Shared navigation for the portfolio.
+ * Shared floating Navbar.
  *
- * Server Component:
- * - Brand and links are server-rendered.
- * - ThemeToggle handles its own client-side behavior.
- *
- * Mobile overlay navigation will be added separately.
+ * Desktop and mobile interactivity are isolated in Client Components.
+ * The intro animation may control visibility via the site-header class.
  */
 export function Navbar() {
-  const desktopNavigation = navigationItems.filter((item) => item.id !== "contact");
-
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-4 sm:pt-5">
+    <header className="site-header fixed inset-x-0 top-0 z-50 pt-4 sm:pt-5">
       <Container>
         <nav
           aria-label="Primary navigation"
-          className="flex min-h-18 items-center justify-between gap-4 rounded-full border border-border bg-surface/85 px-4 py-3 shadow-lg shadow-black/5 backdrop-blur-xl sm:px-6"
+          className="flex min-h-18 items-center justify-between gap-3 rounded-full border border-border bg-surface/85 px-4 py-3 shadow-lg shadow-black/5 backdrop-blur-xl sm:px-6"
         >
-          {/* Brand identity */}
           <Link
             href="/"
             aria-label={`${siteConfig.brandName} — Homepage`}
-            className="group flex shrink-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            className="group flex min-w-0 shrink-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-sm font-extrabold tracking-tight text-accent-foreground transition-transform duration-200 group-hover:scale-105">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-sm font-extrabold tracking-tight text-accent-foreground transition-transform duration-200 group-hover:scale-105">
               {siteConfig.initials}
             </span>
 
-            <span className="flex flex-col">
-              <span className="text-sm leading-tight font-semibold tracking-tight text-foreground sm:text-base">
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate text-sm leading-tight font-semibold tracking-tight text-foreground sm:text-base">
                 {siteConfig.brandName}
               </span>
 
@@ -47,27 +43,13 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop navigation */}
-          <div className="hidden items-center gap-1 xl:flex">
-            {desktopNavigation.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className="rounded-full px-3 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-surface-elevated hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
+          <DesktopNavigation />
 
-          {/* Desktop and mobile actions */}
           <div className="flex shrink-0 items-center gap-2">
-            {/* Desktop theme toggle */}
             <div className="hidden xl:block">
               <ThemeToggle />
             </div>
 
-            {/* Desktop Contact CTA */}
             <div className="hidden xl:block">
               <ButtonLink
                 href={primaryNavigationAction.href}
@@ -79,7 +61,6 @@ export function Navbar() {
               </ButtonLink>
             </div>
 
-            {/* Mobile/tablet full-screen navigation */}
             <MobileMenu />
           </div>
         </nav>

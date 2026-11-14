@@ -6,10 +6,12 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { navigationItems, primaryNavigationAction } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
+import { useActiveSection } from "@/hooks/use-active-section";
 
 export function MobileMenu() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const activeSection = useActiveSection();
 
   const menuItems = navigationItems.filter((item) => item.id !== "contact");
 
@@ -25,6 +27,18 @@ export function MobileMenu() {
   function closeMenu() {
     dialogRef.current?.close();
   }
+
+  // Ensure background scrolling is locked
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   // If the screen becomes desktop-sized, close the mobile menu.
   useEffect(() => {
@@ -101,20 +115,32 @@ export function MobileMenu() {
             aria-label="Mobile navigation"
             className="mx-auto flex w-full max-w-md flex-col gap-1"
           >
-            {menuItems.map((item, index) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                onClick={closeMenu}
-                className="group flex min-h-14 items-center gap-5 rounded-xl px-4 py-3 text-2xl font-semibold tracking-tight transition-colors hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                <span className="text-xs font-medium text-muted">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            {menuItems.map((item, index) => {
+              const isActive = activeSection === item.id;
 
-                <span>{item.label}</span>
-              </Link>
-            ))}
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  onClick={closeMenu}
+                  aria-current={isActive ? "location" : undefined}
+                  className={[
+                    "group flex min-h-14 items-center gap-5 rounded-xl px-4 py-3",
+                    "text-2xl font-semibold tracking-tight transition-colors",
+                    "focus-visible:outline-2 focus-visible:outline-accent",
+                    isActive
+                      ? "bg-surface text-accent"
+                      : "text-foreground hover:bg-surface hover:text-accent",
+                  ].join(" ")}
+                >
+                  <span className="text-xs font-medium text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
 
             {/* Primary Contact action */}
             <Link
