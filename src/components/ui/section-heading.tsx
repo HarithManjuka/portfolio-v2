@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
@@ -25,9 +24,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-accent">
-          {eyebrow}
-        </p>
+        <p className="text-xs font-semibold tracking-[0.25em] text-accent uppercase">{eyebrow}</p>
       )}
 
       <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -35,9 +32,7 @@ export function SectionHeading({
       </h2>
 
       {description && (
-        <p className="max-w-2xl text-base leading-7 text-muted sm:text-lg">
-          {description}
-        </p>
+        <p className="max-w-2xl text-base leading-7 text-muted sm:text-lg">{description}</p>
       )}
     </div>
   );
