@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
+/* ==========================================
+   PORTFOLIO DESIGN SYSTEM
+   Default theme: Dark
+   ========================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* Core colors */
+  --background: #0b0d12;
+  --foreground: #f5f6f8;
+
+  /* Surfaces */
+  --surface: #151821;
+  --surface-elevated: #1c202b;
+
+  /* Typography */
+  --muted: #a6adbb;
+
+  /* Borders */
+  --border: #292e3a;
+
+  /* Brand accent */
+  --accent: #f16d73;
+  --accent-foreground: #171717;
+
+  /* Layout */
+  --container-width: 1200px;
+  --section-spacing: clamp(5rem, 9vw, 8rem);
+
+  /* Animation */
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 500ms;
 }
+
+/* ==========================================
+   LIGHT THEME
+   Activated with data-theme="light"
+   ========================================== */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #fafafc;
+  --foreground: #171923;
+
+  --surface: #ffffff;
+  --surface-elevated: #f0f1f5;
+
+  --muted: #565d6b;
+  --border: #e3e5ec;
+
+  --accent: #b42336;
+  --accent-foreground: #ffffff;
+}
+
+/* ==========================================
+   TAILWIND CSS V4 THEME MAPPING
+   ========================================== */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ==========================================
+   GLOBAL ELEMENT STYLES
+   ========================================== */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+
+  transition:
+    background-color var(--transition-normal) ease,
+    color var(--transition-normal) ease;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================
+   ACCESSIBILITY: REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    transition: none;
+  }
 }
