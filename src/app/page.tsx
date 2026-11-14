@@ -2,17 +2,14 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Surface } from "@/components/ui/surface";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background py-20 text-foreground">
+    <main id="main-content" className="min-h-screen bg-background pt-36 pb-20 text-foreground">
       <Container>
         <div className="flex flex-col items-center gap-10">
-          <ThemeToggle />
-
-          <div className="flex max-w-3xl flex-col items-center gap-5 text-center">
+          <div className="flex max-w-3xl flex-col items-center gap-5 pt-12 text-center">
             <p className="text-xs font-semibold tracking-[0.3em] text-accent uppercase">
               Personal Portfolio
             </p>
@@ -40,8 +37,8 @@ export default function Home() {
 
           <section
             id="component-preview"
-            className="w-full space-y-8 pt-20"
             aria-label="Reusable component preview"
+            className="w-full scroll-mt-32 space-y-8 pt-20"
           >
             <SectionHeading
               eyebrow="Design System"
@@ -63,7 +60,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold text-foreground">Theme Compatibility</h3>
 
                 <p className="mt-3 text-sm leading-6 text-muted">
-                  All components automatically adapt to dark and light modes using semantic design
+                  Components automatically adapt to dark and light modes using semantic design
                   tokens.
                 </p>
               </Surface>
