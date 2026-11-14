@@ -1,9 +1,5 @@
-
 import Link from "next/link";
-import type {
-  ButtonHTMLAttributes,
-  ComponentProps,
-} from "react";
+import type { ButtonHTMLAttributes, ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,11 +11,9 @@ interface ButtonStyleProps {
   size?: ButtonSize;
 }
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonStyleProps;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyleProps;
 
-type ButtonLinkProps = ComponentProps<typeof Link> &
-  ButtonStyleProps;
+type ButtonLinkProps = ComponentProps<typeof Link> & ButtonStyleProps;
 
 const baseStyles =
   "inline-flex items-center justify-center gap-2 rounded-lg font-medium " +
@@ -28,12 +22,9 @@ const baseStyles =
   "disabled:cursor-not-allowed disabled:opacity-50";
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-accent text-accent-foreground hover:opacity-90",
-  secondary:
-    "border border-border bg-surface text-foreground hover:bg-surface-elevated",
-  ghost:
-    "text-foreground hover:bg-surface-elevated",
+  primary: "bg-accent text-accent-foreground hover:opacity-90",
+  secondary: "border border-border bg-surface text-foreground hover:bg-surface-elevated",
+  ghost: "text-foreground hover:bg-surface-elevated",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -42,17 +33,8 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: "px-7 py-3.5 text-base",
 };
 
-function getButtonStyles(
-  variant: ButtonVariant,
-  size: ButtonSize,
-  className?: string,
-) {
-  return cn(
-    baseStyles,
-    variantStyles[variant],
-    sizeStyles[size],
-    className,
-  );
+function getButtonStyles(variant: ButtonVariant, size: ButtonSize, className?: string) {
+  return cn(baseStyles, variantStyles[variant], sizeStyles[size], className);
 }
 
 export function Button({
@@ -62,13 +44,7 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={getButtonStyles(variant, size, className)}
-      {...props}
-    />
-  );
+  return <button type={type} className={getButtonStyles(variant, size, className)} {...props} />;
 }
 
 export function ButtonLink({
@@ -77,10 +53,5 @@ export function ButtonLink({
   className,
   ...props
 }: ButtonLinkProps) {
-  return (
-    <Link
-      className={getButtonStyles(variant, size, className)}
-      {...props}
-    />
-  );
+  return <Link className={getButtonStyles(variant, size, className)} {...props} />;
 }
